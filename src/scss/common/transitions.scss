@@ -1,0 +1,22 @@
+/* Transitions */
+
+// Router View Switch (Default)
+.router-view-switch-default-enter-active,
+.router-view-switch-default-leave-active {
+    transition: all 0.5s;
+}
+.router-view-switch-default-enter,
+.router-view-switch-default-leave-to {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+// Fade (Simple)
+.fade-simple-enter-active,
+.fade-simple-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-simple-enter,
+.fade-simple-leave-to {
+    opacity: 0;
+}
