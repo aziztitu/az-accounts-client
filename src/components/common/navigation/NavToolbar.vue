@@ -4,7 +4,7 @@
             <div>
                 <slot name="hamburgerHolder"></slot>
             </div>
-            <img src="../../../../src/assets/images/logo/glass-white.png">
+            <Logo class=""></Logo>
             <v-toolbar-title>{{appTitle}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
@@ -26,8 +26,13 @@
     import Component from 'vue-class-component';
     import AppConfig from '@/AppConfig';
     import App from '@/App.vue';
+    import Logo from '@/components/common/app/Logo.vue';
 
-    @Component
+    @Component({
+        components: {
+            Logo,
+        }
+    })
     export default class NavToolbar extends Vue {
         private appTitle = AppConfig.title;
 

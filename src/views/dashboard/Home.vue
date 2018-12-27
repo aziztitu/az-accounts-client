@@ -1,7 +1,8 @@
 <template>
     <div class="home">
         <v-card class="flat transparent logo-container d-flex justify-center" ref="logoContainer">
-            <v-img alt="Vue logo" :src="logoImage" max-width="300px"></v-img>
+            <!-- <v-img alt="Vue logo" :src="logoImage" max-width="300px"></v-img> -->
+            <Logo class="large"></Logo>
         </v-card>
     </div>
 </template>
@@ -9,9 +10,11 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
     import App, { AppEventType } from '@/App.vue';
+    import Logo from '@/components/common/app/Logo.vue';
 
     @Component({
         components: {
+            Logo
         },
     })
     export default class Home extends Vue {
@@ -36,7 +39,7 @@
         }
 
         private updateImage() {
-            this.logoImage = require(`@/assets/images/logo/hi-res/glass-${(this.$refs.logoContainer as any).classes['theme--dark'] ? 'white' : 'black'}.png`);
+            this.logoImage = require(`@/assets/images/logo/logo-outline-${(this.$refs.logoContainer as any).classes['theme--dark'] ? 'white' : 'black'}-48.png`);
         }
     }
 </script>
