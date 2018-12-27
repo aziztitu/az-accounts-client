@@ -52,7 +52,11 @@
                     </v-toolbar>
 
                     <v-list class="pt-2">
-                        <v-list-tile avatar>
+                        <router-link
+                            to="../profile"
+                            tag="v-list-tile"
+                            append
+                        >
                             <v-list-tile-avatar>
                                 <img
                                     src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
@@ -60,9 +64,9 @@
                             </v-list-tile-avatar>
 
                             <v-list-tile-content>
-                                <v-list-tile-title>Account Name</v-list-tile-title>
+                                <v-list-tile-title>Profile Name</v-list-tile-title>
                             </v-list-tile-content>
-                        </v-list-tile>
+                        </router-link>
 
                         <div v-for="(navRouterLinkGroup, index) in navRouterLinks" :key="index">
                             <v-divider></v-divider>

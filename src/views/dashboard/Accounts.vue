@@ -19,7 +19,7 @@
             </v-toolbar>
             <v-list>
                 <template v-for="(account, index) in accounts">
-                    <v-list-tile :key="account.id" avatar @click>
+                    <v-list-tile :key="account.id" avatar @click=";">
                         <v-list-tile-avatar>
                             <img
                                 src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
@@ -34,8 +34,15 @@
                         <v-list-tile-action>
                             <v-tooltip bottom>
                                 <v-btn icon slot="activator">
-                                    <v-icon>more_vert</v-icon>
-                                </v-btn>More Actions
+                                    <v-icon>edit</v-icon>
+                                </v-btn>Edit
+                            </v-tooltip>
+                        </v-list-tile-action>
+                        <v-list-tile-action>
+                            <v-tooltip bottom>
+                                <v-btn icon slot="activator">
+                                    <v-icon>delete</v-icon>
+                                </v-btn>Delete
                             </v-tooltip>
                         </v-list-tile-action>
                     </v-list-tile>

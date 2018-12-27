@@ -36,22 +36,29 @@ export default new Router({
         },
         {
             path: '/dashboard',
-            component: Dashboard,
+            component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue'),
             children: [
                 {
                     path: '',
                     redirect: 'home',
                 },
                 {
+                    path: 'profile',
+                    component: () =>
+                        import(/* webpackChunkName: "profile" */ './views/dashboard/Profile.vue'),
+                },
+                {
                     path: 'home',
                     name: 'home',
-                    component: Home,
+                    component: () =>
+                        import(/* webpackChunkName: "home" */ './views/dashboard/Home.vue'),
                 },
                 {
                     path: 'accounts',
                     name: 'accounts',
                     // component: Users,
-                    component: () => import('./views/dashboard/Accounts.vue'),
+                    component: () =>
+                        import(/* webpackChunkName: "accounts" */ './views/dashboard/Accounts.vue'),
                 },
                 {
                     path: 'about',
