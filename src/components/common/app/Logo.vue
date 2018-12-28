@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue'
+    import Vue from 'vue';
     import Component from 'vue-class-component';
 
     @Component
@@ -30,12 +30,12 @@
         }
 
         &.theme--dark {
-          fill: white;
+            fill: white;
         }
 
         svg {
-          width: 100%;
-          height: 100%;
+            width: 100%;
+            height: 100%;
         }
     }
 </style>

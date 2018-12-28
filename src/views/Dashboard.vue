@@ -52,11 +52,7 @@
                     </v-toolbar>
 
                     <v-list class="pt-2">
-                        <router-link
-                            to="../profile"
-                            tag="v-list-tile"
-                            append
-                        >
+                        <router-link to="../myAccount" tag="v-list-tile" append>
                             <v-list-tile-avatar>
                                 <img
                                     src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
@@ -64,7 +60,7 @@
                             </v-list-tile-avatar>
 
                             <v-list-tile-content>
-                                <v-list-tile-title>Profile Name</v-list-tile-title>
+                                <v-list-tile-title>My Account</v-list-tile-title>
                             </v-list-tile-content>
                         </router-link>
 
@@ -121,6 +117,7 @@
     import store from '@/store';
     import NavToolbar from '@/components/common/navigation/NavToolbar.vue';
     import authService from '@/services/authService';
+    import accountService, { SpecialAccountIdentifiers } from '@/services/accountService';
 
     interface NavRouterLink {
         to: string;
@@ -159,6 +156,8 @@
             ],
         ];
 
+        private curAccount = {};
+
         private async logout() {
             const resData = await authService.logoutSession();
             if (resData.success) {
@@ -171,9 +170,22 @@
         }
 
         private async mounted() {
+            await this.validateLoginStatus();
+            await this.fetchDashboardData();
+        }
+
+        private async validateLoginStatus() {
             const resData = await authService.validateApiToken();
             if (!resData.success) {
                 this.goToLoginScreen();
+            }
+        }
+
+        private async fetchDashboardData() {
+            const resData = await accountService.fetchBasicAccountInfo(SpecialAccountIdentifiers.Me);
+            if (resData.success) {
+                // console.log(resData.accountInfo);
+                this.curAccount = resData.accountInfo;
             }
         }
     }

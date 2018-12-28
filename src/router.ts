@@ -43,9 +43,9 @@ export default new Router({
                     redirect: 'home',
                 },
                 {
-                    path: 'profile',
+                    path: 'myAccount',
                     component: () =>
-                        import(/* webpackChunkName: "profile" */ './views/dashboard/Profile.vue'),
+                        import(/* webpackChunkName: "myAccount" */ './views/dashboard/MyAccount.vue'),
                 },
                 {
                     path: 'home',

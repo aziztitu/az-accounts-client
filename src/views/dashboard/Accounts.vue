@@ -56,7 +56,8 @@
 <script lang="ts">
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import accountService from '@/services/accountsService';
+    import accountService from '@/services/accountService';
+    import { ApiResponseData } from '@/tools/types/api';
 
     @Component({
 
@@ -69,8 +70,8 @@
         }
 
         private async getAccounts() {
-            const response = await accountService.fetchAccounts();
-            this.accounts = response.data.accounts;
+            const responseData: ApiResponseData = await accountService.fetchAccounts();
+            this.accounts = responseData.accounts;
         }
     }
 

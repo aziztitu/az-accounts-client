@@ -4,7 +4,7 @@
             <div>
                 <slot name="hamburgerHolder"></slot>
             </div>
-            <Logo class=""></Logo>
+            <Logo class></Logo>
             <v-toolbar-title>{{appTitle}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
@@ -31,7 +31,7 @@
     @Component({
         components: {
             Logo,
-        }
+        },
     })
     export default class NavToolbar extends Vue {
         private appTitle = AppConfig.title;

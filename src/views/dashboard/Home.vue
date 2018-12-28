@@ -14,7 +14,7 @@
 
     @Component({
         components: {
-            Logo
+            Logo,
         },
     })
     export default class Home extends Vue {
