@@ -1,5 +1,5 @@
 <template>
-    <div id="dashboard">
+    <div id="dashboard" class="d-flex">
         <NavToolbar>
             <template slot="hamburgerHolder">
                 <!-- <v-btn icon @click.stop="collapseNavDrawer = !collapseNavDrawer">
@@ -90,7 +90,7 @@
         </transition>
 
         <v-content class="dashboard-content">
-            <v-container class="dashboard-container" fluid>
+            <v-container class="dashboard-container d-flex" fluid>
                 <v-layout class="dashboard-layout" row justify-center>
                     <v-flex>
                         <transition name="router-view-switch-default" appear mode="out-in">
@@ -193,6 +193,18 @@
 
 <style lang="scss" scoped>
     @import "@/scss/common/constants.scss";
+
+    #dashboard {
+        min-height: 100%;
+
+        .dashboard-content {
+            flex: 1;
+
+            .dashboard-container {
+                min-height: 100%;
+            }
+        }
+    }
 
     #navDrawer {
         .v-list {
