@@ -16,4 +16,9 @@ export default {
         const res = await Api.instance.get<ApiResponseData>(`accounts/${accountId}/info/basic`);
         return res.data;
     },
+
+    async fetchAccountRoles() {
+        const res = await Api.instance.get<ApiResponseData>('accounts/roles');
+        return res.data;
+    },
 };

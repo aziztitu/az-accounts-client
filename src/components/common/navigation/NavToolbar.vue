@@ -15,7 +15,13 @@
                     depressed
                     v-on:click="switchTheme()"
                 >Switch Theme</v-btn>
-                <slot></slot>
+                <slot name="default"></slot>
+            </v-toolbar-items>
+            <v-toolbar-items class="hidden-md-and-up">
+                <v-btn icon v-on:click="switchTheme()">
+                    <v-icon>invert_colors</v-icon>
+                </v-btn>
+                <slot name="mobile"></slot>
             </v-toolbar-items>
         </v-toolbar>
     </transition>

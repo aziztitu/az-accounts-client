@@ -1,14 +1,14 @@
 <template>
-    <div id="dashboard" class="d-flex">
+    <div id="dashboard" class="d-flex" v-resize="onWindowResized">
         <NavToolbar>
             <template slot="hamburgerHolder">
-                <!-- <v-btn icon @click.stop="collapseNavDrawer = !collapseNavDrawer">
-                    <v-icon v-if="collapseNavDrawer">menu</v-icon>
-                    <v-icon v-else>chevron_left</v-icon>
-                </v-btn>-->
+                <v-btn v-if="isOnMobile" icon @click.stop="showNavDrawer = !showNavDrawer">
+                    <v-icon v-if="showNavDrawer">chevron_left</v-icon>
+                    <v-icon v-else>menu</v-icon>
+                </v-btn>
             </template>
 
-            <v-btn class="primary" flat v-on:click="logout()">Logout</v-btn>
+            <template slot="mobile"></template>
         </NavToolbar>
 
         <transition name="nav-drawer" appear>
@@ -16,17 +16,20 @@
                 <v-navigation-drawer
                     app
                     floating
-                    :disable-resize-watcher="true"
-                    permanent
-                    hide-overlay
-                    :mini-variant="collapseNavDrawer && !hover"
+                    :temporary="isOnMobile"
+                    :clipped="true"
+                    :mini-variant="collapseNavDrawer && !hover && !isOnMobile"
+                    v-model="showNavDrawer"
                     id="navDrawer"
                     slot-scope="{ hover }"
-                    class="mt-5"
-                    style="top: 16px; margin-bottom: 32px"
+                    :mobile-break-point="mobileBreakPoint"
                 >
+                    <!-- Add this for permanent clipping (even in mobile)
+                        class="mt-5"
+                        style="top: 16px; margin-bottom: 32px"
+                    -->
                     <v-toolbar flat class="secondary" dark height="48px">
-                        <v-list class="pa-0">
+                        <v-list class="pa-0" v-if="!isOnMobile">
                             <v-list-tile @click.stop="collapseNavDrawer = !collapseNavDrawer">
                                 <v-list-tile-action>
                                     <v-btn icon>
@@ -46,6 +49,19 @@
 
                                 <v-list-tile-content>
                                     <v-list-tile-title>{{collapseNavDrawer?"Pin":"Unpin"}} Navigation Drawer</v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                        <v-list class="pa-0" v-else>
+                            <v-list-tile @click.stop="showNavDrawer = !showNavDrawer">
+                                <v-list-tile-action>
+                                    <v-btn icon>
+                                        <v-icon>chevron_left</v-icon>
+                                    </v-btn>
+                                </v-list-tile-action>
+
+                                <v-list-tile-content>
+                                    <v-list-tile-title>Close Navigation Drawer</v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
                         </v-list>
@@ -84,6 +100,19 @@
                                 </v-list-tile-content>
                             </router-link>
                         </div>
+
+                        <v-divider></v-divider>
+
+                        <v-list-tile v-on:click="logout()">
+                            <v-list-tile-action>
+                                <v-btn icon>
+                                    <v-icon>exit_to_app</v-icon>
+                                </v-btn>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>Logout</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
                     </v-list>
                 </v-navigation-drawer>
             </v-hover>
@@ -91,7 +120,7 @@
 
         <v-content class="dashboard-content">
             <v-container class="dashboard-container d-flex" fluid>
-                <v-layout class="dashboard-layout" row justify-center>
+                <v-layout class="dashboard-layout d-flex" row justify-center>
                     <v-flex>
                         <transition name="router-view-switch-default" appear mode="out-in">
                             <router-view></router-view>
@@ -132,7 +161,12 @@
         },
     })
     export default class Dashboard extends Vue {
+        private mobileBreakPoint = 800;
+        private isOnMobile = false;
+
         private collapseNavDrawer = true;
+        private showNavDrawer = true;
+
 
         private navRouterLinks: NavRouterLink[][] = [
             [
@@ -170,6 +204,8 @@
         }
 
         private async mounted() {
+            this.onWindowResized();
+
             await this.validateLoginStatus();
             await this.fetchDashboardData();
         }
@@ -187,6 +223,10 @@
                 // console.log(resData.accountInfo);
                 this.curAccount = resData.accountInfo;
             }
+        }
+
+        private onWindowResized() {
+            this.isOnMobile = window.innerWidth < this.mobileBreakPoint;
         }
     }
 </script>

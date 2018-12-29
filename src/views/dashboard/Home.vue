@@ -15,29 +15,6 @@
         },
     })
     export default class Home extends Vue {
-        private logoImage = '';
-
-        private created() {
-            App.instance.appEventEmitter.on(this.appEventListener);
-        }
-
-        private mounted() {
-            this.updateImage();
-        }
-
-        private destroyed() {
-            App.instance.appEventEmitter.off(this.appEventListener);
-        }
-
-        private appEventListener(event: AppEventType) {
-            if (event === AppEventType.ThemeChanged) {
-                this.updateImage();
-            }
-        }
-
-        private updateImage() {
-            this.logoImage = require(`@/assets/images/logo/logo-outline-${(this.$refs.logoContainer as any).classes['theme--dark'] ? 'white' : 'black'}-48.png`);
-        }
     }
 </script>
 
