@@ -58,6 +58,7 @@
     import Component from 'vue-class-component';
     import accountService from '@/services/accountService';
     import { ApiResponseData } from '@/tools/types/api';
+    import SnackBar, { SnackBarTypes } from '@/components/singleton/SnackBar.vue';
 
     @Component({
 
@@ -70,8 +71,13 @@
         }
 
         private async getAccounts() {
-            const responseData: ApiResponseData = await accountService.fetchAccounts();
-            this.accounts = responseData.accounts;
+            const resData: ApiResponseData = await accountService.fetchAccounts();
+
+            if (resData.success) {
+                this.accounts = resData.accounts;
+            } else {
+                SnackBar.show(resData.message, SnackBarTypes.Error);
+            }
         }
     }
 

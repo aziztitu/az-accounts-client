@@ -13,7 +13,7 @@
             </v-card-text>
 
             <v-card-actions>
-                <span class="ml-2 error--text font-weight-bold subheading">{{message}}</span>
+                <!-- <span class="ml-2 error--text font-weight-bold subheading">{{message}}</span> -->
                 <v-spacer></v-spacer>
                 <!-- <v-btn color="primary" v-on:click="signUp()">Sign Up</v-btn> -->
             </v-card-actions>

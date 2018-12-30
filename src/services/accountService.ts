@@ -21,4 +21,15 @@ export default {
         const res = await Api.instance.get<ApiResponseData>('accounts/roles');
         return res.data;
     },
+
+    async updateAccountInfo(
+        accountId: string | SpecialAccountIdentifiers,
+        accountInfo: { username: string; name: string }
+    ) {
+        const res = await Api.instance.put<ApiResponseData>(
+            `accounts/${accountId}/info`,
+            accountInfo
+        );
+        return res.data;
+    },
 };

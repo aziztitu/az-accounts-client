@@ -2,6 +2,7 @@
     <div id="app">
         <v-app :dark="darkThemeMode">
             <router-view/>
+            <SnackBar></SnackBar>
         </v-app>
     </div>
 </template>
@@ -10,12 +11,17 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import { TypedEvent } from '@/tools/external/TypedEvent.ts';
+    import SnackBar from '@/components/singleton/SnackBar.vue';
 
     export enum AppEventType {
         ThemeChanged,
     }
 
-    @Component
+    @Component({
+        components: {
+            SnackBar,
+        }
+    })
     export default class App extends Vue {
 
         public static instance: App;

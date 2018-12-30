@@ -147,6 +147,7 @@
     import NavToolbar from '@/components/common/navigation/NavToolbar.vue';
     import authService from '@/services/authService';
     import accountService, { SpecialAccountIdentifiers } from '@/services/accountService';
+    import SnackBar, { SnackBarTypes } from '@/components/singleton/SnackBar.vue';
 
     interface NavRouterLink {
         to: string;
@@ -193,8 +194,10 @@
         private curAccount = {};
 
         private async logout() {
+            SnackBar.show('Logging out...');
             const resData = await authService.logoutSession();
             if (resData.success) {
+                SnackBar.show('Logged out.');
                 this.goToLoginScreen();
             }
         }
@@ -213,6 +216,7 @@
         private async validateLoginStatus() {
             const resData = await authService.validateApiToken();
             if (!resData.success) {
+                SnackBar.show('Session expired. Please login again.', SnackBarTypes.Error);
                 this.goToLoginScreen();
             }
         }
@@ -222,6 +226,8 @@
             if (resData.success) {
                 // console.log(resData.accountInfo);
                 this.curAccount = resData.accountInfo;
+            } else {
+                SnackBar.show(resData.message, SnackBarTypes.Error);
             }
         }
 
