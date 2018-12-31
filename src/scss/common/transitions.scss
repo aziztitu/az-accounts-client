@@ -20,3 +20,14 @@
 .fade-simple-leave-to {
     opacity: 0;
 }
+
+// Slide Down
+.slide-down-simple-enter-active,
+.slide-down-simple-leave-active {
+    transition: all 0.75s;
+}
+.slide-down-simple-enter,
+.slide-down-simple-leave-to {
+    opacity: 0;
+    transform: translateY(-40px);
+}

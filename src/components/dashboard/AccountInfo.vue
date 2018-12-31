@@ -5,6 +5,7 @@
             <v-spacer></v-spacer>
             <div class="align-center">
                 <v-btn
+                    v-if="accountInfo"
                     icon
                     class="ma-0"
                     :loading="savingAccountInfo"
@@ -31,22 +32,31 @@
         </v-card-title>
 
         <v-card-text>
-            <v-form v-if="accountInfo">
-                <v-text-field label="Name" v-model="accountInfo.name" :disabled="!editAccountInfo"></v-text-field>
-                <v-text-field
-                    label="Username"
-                    v-model="accountInfo.username"
-                    :disabled="!editAccountInfo"
-                ></v-text-field>
-                <v-select
-                    label="Role"
-                    :items="allRoles"
-                    item-text="name"
-                    item-value="value"
-                    v-model="accountInfo.role"
-                    disabled
-                ></v-select>
-            </v-form>
+            <transition name="slide-down-simple" mode="out-in">
+                <v-form v-if="accountInfo">
+                    <v-text-field
+                        label="Name"
+                        v-model="accountInfo.name"
+                        :disabled="!editAccountInfo"
+                    ></v-text-field>
+                    <v-text-field
+                        label="Username"
+                        v-model="accountInfo.username"
+                        :disabled="!editAccountInfo"
+                    ></v-text-field>
+                    <v-select
+                        label="Role"
+                        :items="allRoles"
+                        item-text="name"
+                        item-value="value"
+                        v-model="accountInfo.role"
+                        disabled
+                    ></v-select>
+                </v-form>
+                <div v-else>
+                    <v-progress-linear indeterminate></v-progress-linear>
+                </div>
+            </transition>
         </v-card-text>
     </v-card>
 </template>
