@@ -32,7 +32,7 @@
         </v-card-title>
 
         <v-card-text>
-            <transition name="slide-down-simple" mode="out-in">
+            <transition name="slide-down-in-fade-out" mode="out-in">
                 <v-form v-if="accountInfo">
                     <v-text-field
                         label="Name"

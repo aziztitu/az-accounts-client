@@ -21,7 +21,7 @@
     opacity: 0;
 }
 
-// Slide Down
+// Slide Down (Simple)
 .slide-down-simple-enter-active,
 .slide-down-simple-leave-active {
     transition: all 0.75s;
@@ -30,4 +30,19 @@
 .slide-down-simple-leave-to {
     opacity: 0;
     transform: translateY(-40px);
+}
+
+// Slide Down In Fade Out
+.slide-down-in-fade-out-enter-active {
+    transition: all 5s;
+}
+.slide-down-in-fade-out-enter {
+    opacity: 0;
+    transform: translateY(-40px);
+}
+.slide-down-in-fade-out-leave-active {
+    transition: opacity 0.5s;
+}
+.slide-down-in-fade-out-leave-to {
+    opacity: 0;
 }
