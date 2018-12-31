@@ -2,7 +2,7 @@
     <div class="my-account">
         <v-layout>
             <v-flex class="px-2 xs6">
-                <AccountInfo title="My Account" :accountId="myAccountId"></AccountInfo>
+                <AccountInfo title="My Account" :accountId="myAccountId" :canEditRole="false"></AccountInfo>
             </v-flex>
 
             <v-flex class="px-2 xs6">

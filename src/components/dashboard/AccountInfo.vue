@@ -6,19 +6,29 @@
             <div class="align-center">
                 <v-btn
                     v-if="accountInfo"
-                    icon
+                    :icon="useIconTools"
                     class="ma-0"
                     :loading="savingAccountInfo"
                     @click="toggleEditAccountInfo()"
+                    :depressed="!useIconTools"
+                    :color="toolButtonColor"
                 >
-                    <transition name="fade-simple" appear mode="out-in">
-                        <v-tooltip v-if="editAccountInfo" key="save" left>
-                            <v-icon slot="activator">save</v-icon>Save
-                        </v-tooltip>
-                        <v-tooltip v-else key="edit" left>
-                            <v-icon slot="activator">edit</v-icon>Edit
-                        </v-tooltip>
-                    </transition>
+                    <template v-if="useIconTools">
+                        <transition name="fade-simple" appear mode="out-in">
+                            <v-tooltip v-if="isInEditMode" key="save" left>
+                                <v-icon slot="activator">save</v-icon>Save
+                            </v-tooltip>
+                            <v-tooltip v-else key="edit" left>
+                                <v-icon slot="activator">edit</v-icon>Edit
+                            </v-tooltip>
+                        </transition>
+                    </template>
+                    <template v-else>
+                        <transition name="fade-simple" appear mode="out-in">
+                            <span v-if="isInEditMode" key="save">Save</span>
+                            <span v-else key="edit">Edit</span>
+                        </transition>
+                    </template>
 
                     <v-progress-circular
                         v-if="savingAccountInfo"
@@ -34,15 +44,11 @@
         <v-card-text>
             <transition name="slide-down-in-fade-out" mode="out-in">
                 <v-form v-if="accountInfo">
-                    <v-text-field
-                        label="Name"
-                        v-model="accountInfo.name"
-                        :disabled="!editAccountInfo"
-                    ></v-text-field>
+                    <v-text-field label="Name" v-model="accountInfo.name" :disabled="!isInEditMode"></v-text-field>
                     <v-text-field
                         label="Username"
                         v-model="accountInfo.username"
-                        :disabled="!editAccountInfo"
+                        :disabled="!isInEditMode"
                     ></v-text-field>
                     <v-select
                         label="Role"
@@ -50,7 +56,7 @@
                         item-text="name"
                         item-value="value"
                         v-model="accountInfo.role"
-                        disabled
+                        :disabled="!isInEditMode || !canEditRole"
                     ></v-select>
                 </v-form>
                 <div v-else>
@@ -64,13 +70,13 @@
 <script lang="ts">
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import SnackBar, { SnackBarTypes } from '@/components/singleton/SnackBar.vue';
+    import SnackBar, { SnackBarTypes, SnackBarOptions } from '@/components/singleton/SnackBar.vue';
     import accountService, { SpecialAccountIdentifiers } from '@/services/accountService';
     import { Prop } from 'vue-property-decorator';
 
     @Component({
     })
-    export default class MyAccountInfo extends Vue {
+    export default class AccountInfo extends Vue {
         @Prop({
             type: String,
             default: 'Account Info'
@@ -83,6 +89,24 @@
         })
         private accountId!: string;
 
+        @Prop({
+            type: Boolean,
+            default: false,
+        })
+        private forceEditMode!: boolean;
+
+        @Prop({
+            type: Boolean,
+            default: true,
+        })
+        private useIconTools!: boolean;
+
+        @Prop({
+            type: Boolean,
+            default: true,
+        })
+        private canEditRole!: boolean;
+
 
         private allRoles = [];
 
@@ -90,6 +114,14 @@
 
         private editAccountInfo = false;
         private savingAccountInfo = false;
+
+        private get isInEditMode() {
+            return this.forceEditMode || this.editAccountInfo;
+        }
+
+        private get toolButtonColor() {
+            return this.useIconTools ? '' : 'primary';
+        }
 
         public async mounted() {
             this.getAllRoles();
@@ -114,28 +146,29 @@
             }
         }
 
-        private async toggleEditAccountInfo() {
-            if (this.editAccountInfo) {
+        private toggleEditAccountInfo() {
+            if (this.isInEditMode) {
                 if (this.accountInfo) {
-                    this.savingAccountInfo = true;
-
-                    const resData = await accountService.updateAccountInfo(this.accountId, {
-                        username: this.accountInfo!.username,
-                        name: this.accountInfo!.name,
-                    });
-
-                    if (resData.success) {
-                        this.editAccountInfo = false;
-                        SnackBar.show('Account Info Saved', SnackBarTypes.Success);
-                    } else {
-                        SnackBar.show(resData.message, SnackBarTypes.Error);
-                    }
-
-                    this.savingAccountInfo = false;
+                    this.saveAccountInfo();
                 }
             } else {
                 this.editAccountInfo = true;
             }
+        }
+
+        private async saveAccountInfo() {
+            this.savingAccountInfo = true;
+
+            const resData = await accountService.updateAccountInfo(this.accountId, this.accountInfo);
+
+            if (resData.success) {
+                this.editAccountInfo = false;
+                SnackBar.show('Account Info Saved', SnackBarTypes.Success);
+            } else {
+                SnackBar.show(resData.message, SnackBarTypes.Error);
+            }
+
+            this.savingAccountInfo = false;
         }
     }
 </script>

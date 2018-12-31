@@ -3,6 +3,7 @@
         v-model="showSnackBar"
         :color="snackBarOptions.color"
         :timeout="snackBarOptions.timeout"
+        :multi-line="snackBarOptions.multiLine"
     >
         {{snackBarContent}}
         <v-btn icon @click="showSnackBar=false">
@@ -18,6 +19,7 @@
     export class SnackBarOptions {
         public color: string = '';
         public timeout: number = 3000;
+        public multiLine: boolean = false;
     }
 
     export const SnackBarTypes = {

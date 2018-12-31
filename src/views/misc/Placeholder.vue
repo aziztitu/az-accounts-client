@@ -25,15 +25,15 @@
 
 <style lang="scss" scoped>
     .placeholder {
-      min-height: 100%;
+        min-height: 100%;
 
-      .logo {
-        fill: #e3e3e3;
+        .logo {
+            fill: #e3e3e3;
 
-        &.theme--dark {
-          fill: #383838;
+            &.theme--dark {
+                fill: #383838;
+            }
         }
-      }
     }
 </style>
 
