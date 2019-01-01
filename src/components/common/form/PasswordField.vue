@@ -10,6 +10,7 @@
         @click:append="showPassword = !showPassword"
         :error="errorMessages.length > 0"
         :error-messages="errorMessages"
+        :disabled="disabled"
     ></v-text-field>
 </template>
 
@@ -37,6 +38,9 @@
             default: () => [],
         })
         private rules!: any[];
+
+        @Prop(Boolean)
+        private disabled!: any[];
 
         @Prop({
             type: Array,

@@ -29,12 +29,7 @@
                         </transition>
                     </template>
 
-                    <v-progress-circular
-                        indeterminate
-                        color="accent"
-                        size="24"
-                        slot="loader"
-                    ></v-progress-circular>
+                    <v-progress-circular indeterminate color="accent" size="24" slot="loader"></v-progress-circular>
                 </v-btn>
             </div>
         </v-card-title>
@@ -56,6 +51,12 @@
                         v-model="accountInfo.role"
                         :disabled="!isInEditMode || !canEditRole"
                     ></v-select>
+                    <PasswordField
+                        v-if="canForceUpdatePassword"
+                        v-model="accountInfo.password"
+                        label="New Password"
+                        :disabled="!isInEditMode"
+                    ></PasswordField>
                 </v-form>
                 <div v-else>
                     <v-progress-linear indeterminate></v-progress-linear>
@@ -71,8 +72,12 @@
     import SnackBar, { SnackBarTypes, SnackBarOptions } from '@/components/singleton/SnackBar.vue';
     import accountService, { SpecialAccountIdentifiers } from '@/services/accountService';
     import { Prop } from 'vue-property-decorator';
+    import PasswordField from '@/components/common/form/PasswordField.vue';
 
     @Component({
+        components: {
+            PasswordField,
+        }
     })
     export default class AccountInfo extends Vue {
         @Prop({
@@ -104,6 +109,9 @@
             default: true,
         })
         private canEditRole!: boolean;
+
+        @Prop(Boolean)
+        private canForceUpdatePassword!: boolean;
 
 
         private allRoles = [];
@@ -139,6 +147,9 @@
             const resData = await accountService.fetchBasicAccountInfo(this.accountId);
             if (resData.success) {
                 this.accountInfo = resData.accountInfo;
+                this.accountInfo.password = '';
+
+                this.$emit('accountInfoFetched', this.accountInfo);
             } else {
                 SnackBar.show(resData.message, SnackBarTypes.Error);
             }
@@ -161,6 +172,8 @@
 
             if (resData.success) {
                 this.editAccountInfo = false;
+                this.accountInfo.password = '';
+
                 SnackBar.show('Account Info Saved', SnackBarTypes.Success);
             } else {
                 SnackBar.show(resData.message, SnackBarTypes.Error);

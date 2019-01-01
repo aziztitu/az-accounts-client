@@ -2,7 +2,12 @@
     <div class="my-account">
         <v-layout>
             <v-flex class="px-2 xs6">
-                <AccountInfo title="My Account" :accountId="myAccountId" :canEditRole="false"></AccountInfo>
+                <AccountInfo
+                    title="My Account"
+                    :accountId="myAccountId"
+                    :canEditRole="allowRoleEdit"
+                    @accountInfoFetched="onAccountInfoFetched($event)"
+                ></AccountInfo>
             </v-flex>
 
             <v-flex class="px-2 xs6">
@@ -28,6 +33,15 @@
     })
     export default class MyAccount extends Vue {
         private myAccountId = SpecialAccountIdentifiers.Me;
+        private allowRoleEdit = false;
+
+        private onAccountInfoFetched(accountInfo: any) {
+            if (accountInfo) {
+                if (accountInfo.role === 'admin') {
+                    this.allowRoleEdit = true;
+                }
+            }
+        }
     }
 </script>
 
