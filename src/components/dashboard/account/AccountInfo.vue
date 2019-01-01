@@ -11,7 +11,6 @@
                     :loading="savingAccountInfo"
                     @click="toggleEditAccountInfo()"
                     :depressed="!useIconTools"
-                    :color="toolButtonColor"
                 >
                     <template v-if="useIconTools">
                         <transition name="fade-simple" appear mode="out-in">
@@ -31,7 +30,6 @@
                     </template>
 
                     <v-progress-circular
-                        v-if="savingAccountInfo"
                         indeterminate
                         color="accent"
                         size="24"

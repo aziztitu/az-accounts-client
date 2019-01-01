@@ -84,7 +84,7 @@
     import accountService from '@/services/accountService';
     import { ApiResponseData } from '@/tools/types/api';
     import SnackBar, { SnackBarTypes } from '@/components/singleton/SnackBar.vue';
-    import AccountInfo from '@/components/dashboard/AccountInfo.vue';
+    import AccountInfo from '@/components/dashboard/account/AccountInfo.vue';
     import { Watch } from 'vue-property-decorator';
 
     @Component({

@@ -7,15 +7,7 @@
             <v-card-text>
                 <v-form ref="loginForm">
                     <v-text-field label="Username" v-model="username" :rules="[rules.required]"></v-text-field>
-                    <v-text-field
-                        label="Password"
-                        v-model="password"
-                        :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-                        :rules="[rules.required]"
-                        :type="showPassword ? 'text' : 'password'"
-                        counter
-                        @click:append="showPassword = !showPassword"
-                    ></v-text-field>
+                    <PasswordField label="Password" v-model="password" :rules="[rules.required]"></PasswordField>
                 </v-form>
             </v-card-text>
 
@@ -38,8 +30,13 @@
     import Component from 'vue-class-component';
     import authService from '@/services/authService';
     import SnackBar, { SnackBarTypes } from '@/components/singleton/SnackBar.vue';
+    import PasswordField from '@/components/common/form/PasswordField.vue';
 
-    @Component
+    @Component({
+        components: {
+            PasswordField,
+        },
+    })
     export default class Login extends Vue {
         private username: string = '';
         private password: string = '';

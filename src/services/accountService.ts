@@ -32,4 +32,12 @@ export default {
         );
         return res.data;
     },
+
+    async updatePassword(accountId: string, curPassword: string, newPassword: string) {
+        const res = await Api.instance.put<ApiResponseData>(`accounts/${accountId}/password`, {
+            curPassword,
+            newPassword,
+        });
+        return res.data;
+    },
 };
