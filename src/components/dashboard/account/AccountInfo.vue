@@ -11,6 +11,7 @@
                     :loading="savingAccountInfo"
                     @click="toggleEditAccountInfo()"
                     :depressed="!useIconTools"
+                    :color="toolButtonColor"
                 >
                     <template v-if="useIconTools">
                         <transition name="fade-simple" appear mode="out-in">
@@ -41,6 +42,12 @@
                     <v-text-field
                         label="Username"
                         v-model="accountInfo.username"
+                        :disabled="!isInEditMode"
+                    ></v-text-field>
+                    <v-text-field
+                        label="Email"
+                        type="email"
+                        v-model="accountInfo.email"
                         :disabled="!isInEditMode"
                     ></v-text-field>
                     <v-select
