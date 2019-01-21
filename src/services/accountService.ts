@@ -24,7 +24,7 @@ export default {
 
     async updateAccountInfo(
         accountId: string | SpecialAccountIdentifiers,
-        accountInfo: { username: string; name: string }
+        accountInfo: any
     ) {
         const res = await Api.instance.put<ApiResponseData>(
             `accounts/${accountId}/info`,
@@ -40,4 +40,12 @@ export default {
         });
         return res.data;
     },
+
+    async createNewAccount(accountInfo: any) {
+        const res = await Api.instance.post<ApiResponseData>(
+            `accounts/new`,
+            accountInfo
+        );
+        return res.data;
+    }
 };
