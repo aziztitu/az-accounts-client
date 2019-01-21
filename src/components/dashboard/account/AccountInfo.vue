@@ -182,6 +182,8 @@
                 this.accountInfo.password = '';
 
                 SnackBar.show('Account Info Saved', SnackBarTypes.Success);
+
+                this.$emit('accountInfoSaved', this.accountInfo);
             } else {
                 SnackBar.show(resData.message, SnackBarTypes.Error);
             }

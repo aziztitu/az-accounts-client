@@ -121,6 +121,7 @@
                                     :forceEditMode="true"
                                     :useIconTools="false"
                                     :canForceUpdatePassword="true"
+                                    @accountInfoSaved="(accountInfo) => { account.name = accountInfo.name }"
                                 ></AccountInfo>
                             </div>
                         </v-expansion-panel-content>
@@ -144,7 +145,7 @@
     const generateDefaultNewAccount = () => {
         return {
             role: 'user'
-        }
+        };
     };
 
     @Component({
