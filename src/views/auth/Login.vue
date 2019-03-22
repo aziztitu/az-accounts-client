@@ -9,6 +9,7 @@
                     <v-text-field label="Username" v-model="username" :rules="[rules.required]"></v-text-field>
                     <PasswordField label="Password" v-model="password" :rules="[rules.required]"></PasswordField>
                 </v-form>
+                {{err}}
             </v-card-text>
 
             <v-card-actions>
@@ -31,6 +32,7 @@
     import authService from '@/services/authService';
     import SnackBar, { SnackBarTypes } from '@/components/singleton/SnackBar.vue';
     import PasswordField from '@/components/common/form/PasswordField.vue';
+    import AppConfig from '@/AppConfig';
 
     @Component({
         components: {
@@ -42,6 +44,7 @@
         private password: string = '';
 
         private message: string = '';
+        private err: string = '';
 
         private showPassword: boolean = false;
         private rules = {
@@ -63,13 +66,18 @@
             if ((this.$refs.loginForm as any).validate()) {
                 this.isLoggingIn = true;
 
-                const resData = await authService.login(this.username, this.password);
+                try {
+                    const resData = await authService.login(this.username, this.password);
 
-                if (resData.success) {
-                    SnackBar.show('Logged in successfully', SnackBarTypes.Success);
-                    this.goToDashboard();
-                } else {
-                    SnackBar.show(resData.message, SnackBarTypes.Error);
+                    if (resData.success) {
+                        SnackBar.show('Logged in successfully', SnackBarTypes.Success);
+                        this.goToDashboard();
+                    } else {
+                        SnackBar.show(resData.message, SnackBarTypes.Error);
+                    }
+                } catch (e) {
+                    this.err = e;
+                    SnackBar.show(`${e}`, SnackBarTypes.Error);
                 }
 
                 this.isLoggingIn = false;

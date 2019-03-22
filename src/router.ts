@@ -1,10 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/dashboard/Home.vue';
 import Auth from './views/Auth.vue';
 import Dashboard from './views/Dashboard.vue';
 import Login from './views/auth/Login.vue';
 import SignUp from './views/auth/SignUp.vue';
+
+import Home from './views/dashboard/Home.vue';
+import MyAccount from './views/dashboard/MyAccount.vue';
+import Accounts from './views/dashboard/Accounts.vue';
+import About from './views/dashboard/About.vue';
 
 Vue.use(Router);
 
@@ -36,7 +40,7 @@ export default new Router({
         },
         {
             path: '/dashboard',
-            component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue'),
+            component: Dashboard,
             children: [
                 {
                     path: '',
@@ -44,32 +48,33 @@ export default new Router({
                 },
                 {
                     path: 'myAccount',
-                    component: () =>
-                        import(/* webpackChunkName: "myAccount" */ './views/dashboard/MyAccount.vue'),
+                    component: MyAccount,
                 },
                 {
                     path: 'home',
                     name: 'home',
-                    component: () =>
-                        import(/* webpackChunkName: "home" */ './views/dashboard/Home.vue'),
+                    component: Home,
                 },
                 {
                     path: 'accounts',
                     name: 'accounts',
-                    // component: Users,
-                    component: () =>
-                        import(/* webpackChunkName: "accounts" */ './views/dashboard/Accounts.vue'),
+                    component: Accounts,
                 },
                 {
                     path: 'about',
                     name: 'about',
+                    component: About,
                     // route level code-splitting
                     // this generates a separate chunk (about.[hash].js) for this route
                     // which is lazy-loaded when the route is visited.
-                    component: () =>
-                        import(/* webpackChunkName: "about" */ './views/dashboard/About.vue'),
+                    // component: () =>
+                    //    import(/* webpackChunkName: "about" */ './views/dashboard/About.vue'),
                 },
             ],
+        },
+        {
+            path: '*',
+            redirect: '/',
         },
     ],
 });

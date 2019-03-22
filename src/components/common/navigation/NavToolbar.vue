@@ -1,10 +1,12 @@
 <template>
     <transition name="nav-toolbar" appear>
-        <v-toolbar dark color="primary" id="navToolbar" app clipped-left>
-            <div>
+        <v-toolbar dark color="primary" id="navToolbar" app clipped-left pa-0>
+            <v-toolbar-side-icon @click="$emit('hamburgerClicked')" v-if="showHamburgerIcon">
                 <slot name="hamburgerHolder"></slot>
-            </div>
-            <Logo class></Logo>
+            </v-toolbar-side-icon>
+            <router-link to="/">
+                <Logo class></Logo>
+            </router-link>
             <v-toolbar-title>{{appTitle}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
@@ -33,6 +35,7 @@
     import AppConfig from '@/AppConfig';
     import App from '@/App.vue';
     import Logo from '@/components/common/app/Logo.vue';
+    import { Prop } from 'vue-property-decorator';
 
     @Component({
         components: {
@@ -41,6 +44,12 @@
     })
     export default class NavToolbar extends Vue {
         private appTitle = AppConfig.title;
+
+        @Prop({
+            type: Boolean,
+            default: true,
+        })
+        private showHamburgerIcon!: boolean;
 
         private switchTheme() {
             App.instance.switchTheme();

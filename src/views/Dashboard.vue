@@ -1,11 +1,11 @@
 <template>
     <div id="dashboard" class="d-flex" v-resize="onWindowResized">
-        <NavToolbar>
+        <NavToolbar @hamburgerClicked="showNavDrawer = !showNavDrawer" :showHamburgerIcon="isOnMobile">
             <template slot="hamburgerHolder">
-                <v-btn v-if="isOnMobile" icon @click.stop="showNavDrawer = !showNavDrawer">
-                    <v-icon v-if="showNavDrawer">chevron_left</v-icon>
+                <div class="d-flex align-center" icon>
+                    <v-icon v-if="(isOnMobile && showNavDrawer)">chevron_left</v-icon>
                     <v-icon v-else>menu</v-icon>
-                </v-btn>
+                </div>
             </template>
 
             <template slot="mobile"></template>
