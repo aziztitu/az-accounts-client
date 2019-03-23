@@ -1,7 +1,7 @@
 <template>
     <div class="my-account">
-        <v-layout>
-            <v-flex class="px-2 xs6">
+        <v-layout wrap>
+            <v-flex px-2 xs12 md6 py-3>
                 <AccountInfo
                     title="My Account"
                     :accountId="myAccountId"
@@ -10,7 +10,7 @@
                 ></AccountInfo>
             </v-flex>
 
-            <v-flex class="px-2 xs6">
+            <v-flex px-2 xs12 md6>
                 <PasswordChanger :accountId="myAccountId"></PasswordChanger>
             </v-flex>
         </v-layout>

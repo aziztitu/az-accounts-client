@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AZ Accounts</string>
+    <string name="title_activity_main">AZ Accounts</string>
+    <string name="package_name">com.azeesoft.accounts</string>
+    <string name="fileprovider_authority">com.azeesoft.accounts.fileprovider</string>
+    <string name="custom_url_scheme">com.azeesoft.accounts</string>
+</resources>

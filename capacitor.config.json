@@ -1,0 +1,6 @@
+{
+  "appId": "com.azeesoft.accounts",
+  "appName": "AZ Accounts",
+  "bundledWebRuntime": false,
+  "webDir": "dist"
+}
