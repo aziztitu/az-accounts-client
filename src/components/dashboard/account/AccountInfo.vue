@@ -11,6 +11,7 @@
                     :loading="savingAccountInfo"
                     @click="toggleEditAccountInfo()"
                     :depressed="!useIconTools"
+                    :color="useIconTools?'':'primary'"
                 >
                     <template v-if="useIconTools">
                         <transition name="fade-simple" appear mode="out-in">

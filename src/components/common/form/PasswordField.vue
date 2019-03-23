@@ -2,7 +2,6 @@
     <v-text-field
         :label="label"
         :value="value"
-        @input="$emit('input', $event)"
         :append-icon="showPassword ? 'visibility_off' : 'visibility'"
         :rules="rules"
         :type="showPassword ? 'text' : 'password'"
@@ -11,6 +10,7 @@
         :error="errorMessages.length > 0"
         :error-messages="errorMessages"
         :disabled="disabled"
+        v-on="listeners"
     ></v-text-field>
 </template>
 
@@ -49,5 +49,14 @@
         private errorMessages!: string[];
 
         private showPassword: boolean = false;
+
+        get listeners() {
+            return {
+                ...this.$listeners,
+                ... {
+                    input: ($event: any) => this.$emit('input', $event)
+                },
+            }
+        }
     }
 </script>

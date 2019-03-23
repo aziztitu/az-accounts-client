@@ -6,8 +6,8 @@
             </v-toolbar>
             <v-card-text>
                 <v-form ref="loginForm">
-                    <v-text-field label="Username" v-model="username" :rules="[rules.required]"></v-text-field>
-                    <PasswordField label="Password" v-model="password" :rules="[rules.required]"></PasswordField>
+                    <v-text-field label="Username" v-model="username" :rules="[rules.required]" @keyup.enter="login"></v-text-field>
+                    <PasswordField label="Password" v-model="password" :rules="[rules.required]" @keyup.enter="login"></PasswordField>
                 </v-form>
             </v-card-text>
 
@@ -16,7 +16,7 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     color="primary"
-                    v-on:click="login()"
+                    v-on:click="login"
                     :loading="isLoggingIn"
                     :disabled="isLoggingIn"
                 >Login</v-btn>
