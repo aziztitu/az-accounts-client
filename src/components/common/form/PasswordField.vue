@@ -54,9 +54,9 @@
             return {
                 ...this.$listeners,
                 ... {
-                    input: ($event: any) => this.$emit('input', $event)
+                    input: ($event: any) => this.$emit('input', $event),
                 },
-            }
+            };
         }
     }
 </script>

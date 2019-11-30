@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors';
 export default {
     title: 'AZ Accounts',
     api: {
-        baseURL: `http://192.168.0.15:8081`,
+        baseURL: `http://localhost:8081`,
     },
 };
 
